@@ -13,7 +13,7 @@ License: CC-BY-4.0
 ---
 
 ## Abstract
-This CIP outlines a native token standard, called Beacon Tokens, that serves as a way to "tag" on-chain data in a way that is efficiently queryable by off-chain APIs. This enables the creation of **massively** concurrent dApps that require contextual availability of on-chain data, such as programmable P2P swaps. 
+This CIP outlines a native token standard, called Beacon Tokens, that serves as a way to "tag" on-chain data in a way that is efficiently queryable by off-chain APIs. This enables the creation of **organically** concurrent dApps that require contextual availability of on-chain data, such as programmable P2P swaps. 
 
 
 ## Motivation
