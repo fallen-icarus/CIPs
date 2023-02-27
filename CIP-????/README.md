@@ -13,83 +13,14 @@ License: CC-BY-4.0
 ---
 
 ## Abstract
-This CIP outlines a native token standard, called Beacon Tokens, that serves as a way to "tag" on-chain data in a way that is efficiently queryable by off-chain APIs. This enables the creation of massively concurrent dApps that require contextual availability of on-chain data, such as programmable P2P swaps. 
+This CIP outlines a native token standard, called Beacon Tokens, that serves as a way to "tag" on-chain data in a way that is efficiently queryable by off-chain APIs. This enables the creation of **massively** concurrent dApps that require contextual availability of on-chain data, such as programmable P2P swaps. 
 
-
-
-This informational CIP proposes an NFT standard, called ***Beacon Tokens***, to solve this broadcasting issue. Using beacon tokens, it is possible to create distributed L1 dApps (eg, DEXs, p2p lending, etc) where users not only maintain full delegation control of their assets, but can also maintain full custody of their assets at all times.
- 
-Beacon tokens can be generalized to other use cases, such as creating an on-chain personal address book tied to - and fully recoverable by - a user's payment pub-key, or trustlessly sharing reference scripts with other blockchain users.
 
 ## Motivation
 
-Not all dApps are created equally. Some dApps 
+Cardano's eUTxO smart contract paradigm allows for the creation of highly distributed dApp architectures, such as composable p2p swaps. In order to take full advantage of the concurrency offered by eUTxO model, each user must have their own script address(es) while using the dApp. This poses a challenge: if all users have unique addresses while using the dApp, how can users find (and interact with) each other, **without** relying on a centralized aggregator/batcher?
 
-
-Currently, many dApps on Cardano are implemented in ways that lock users' assets into a tightly fixed, and/or centrally maintained, set of script addresses.
-
-
-Such design patterns result in trade-offs that are advantageous for dApps performing serial logic, and disadvantageous for dApps performing concurrent logic.
-
-
-but pose hindrances for dApps trying to achieve massive scale on the CSL.
-
-Such design patterns are reminiscent of the EVM's accounts-based programming paradigm, and are incapable of taking full advantage of the concurrency and parallelism offered by the eUTxO programming paradigm. 
-
-
-In order to take full advantage of the concurrency that the eUTxO programming model is capable of, each user must have his/her own address while using the dApp. This poses a challenge: if all users have unique addresses while using the dApp, how can users find (and interact with) each other, **without** relying on a batcher?
-
-This CIP proposes a solution how we can utilize native tokens to group UTxOs, addresses, and transactions into efficiently queryable set
-
-
-For dApps that hope to achieve massive scale on the CSL, 
-
-
-
-This design pattern results in a number of mechanics that may be undesirable for dApps attempting to achieve massive scale:
-
-1. Centralization of Stake
-2. Low Composability
-3. 
-
-Some such dApps are able to operate relatively safely, but do come with some downsides:
-
-1. 
-
-
-
-Smart contracts on Cardano are built on the notion of "programmable validators" - address
-
-
-
-The ability for ADA holders to fully exercise their staking rights is critical to Ouroboros' security model. 
-
-
-To date, there are very few L1 dApps in which users maintain **complete** control of their assets, including staking rights. 
-
-
-This is inconvenient for users, increases contract attack surface, and may even lead to unhealthy incentives for stake distribution.
-
-This results in a larger than necessary attack surface 
-
-Such dApps may be unable to scale
-
-
-Some dApps choose to pool user assets together and are thus forced to delegate the assets together. In Proof-of-Stake (PoS) blockchains, the latter is a significant security concern; the more popular an L1 dApp becomes, the more centralized the underlying stake becomes. Below are a few techniques used to combat this:
-
-
-One of the reasons this feature is so challenging to implement is because, for many dApps, it would require a large number of addresses to be aware of (and interact with) each other. Many da
-
-
-Those that do support individual staking tend not to share how they've overcome the aggregation issue associated with giving each user his/her own dApp address. Other L1 dApps tend to pool  Some dApps try to address this concern by:
-
-1. Fractionalizing the asset pools -  instead of all assets being at one address and delegated to only one stake pool, the assets are split among several addresses and delegated to several separate stake pools.
-2. Issuing governance tokens - each user gets a vote on where the pooled assets will be delegated.
-
-This general pattern is utilized by all kinds of L1 dApps: DAOs, DEXs, p2p lending, etc. Unfortunately, the above mitigations do not fully solve the issue; the blockchain is still significantly more centralized than if full delegation control was used.
-
-
-
+This CIP proposes a solution: we can utilize native tokens to "tag" UTxOs, addresses, and transactions into groups that are efficiently queryable via off-chain APIs. 
 
 ## Specification
 
